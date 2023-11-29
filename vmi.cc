@@ -15,9 +15,15 @@
  * =====================================================================================
  */
 #include <iostream>
+#include <cstdlib>
+
+static void help(void) {
+    std::cout << "Usage: vmi <source.vmi>" << std::endl;
+    exit(1);
+}
 
 int main (int argc, char** argv) {
-    std::cout << "Hello World" << std::endl;
+    if (argc < 2) help();
     return 0;
 }
 
