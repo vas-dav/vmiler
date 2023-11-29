@@ -2,6 +2,6 @@
 
 set -xe
 
-nasm -f elf64 -o main.o main.asm
-ld main.o
+SRCS="*.cc"
 
+g++ $SRCS -o vmi
