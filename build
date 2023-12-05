@@ -2,6 +2,6 @@
 
 set -xe
 
-SRCS="*.cc"
 
-g++ $SRCS -o vmi
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" -S /home/shared/vmiler -B /home/shared/vmiler/cmake-build-tylen
+cmake --build /home/shared/vmiler/cmake-build-tylen --target main -- -j 3
