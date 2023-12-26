@@ -3,4 +3,8 @@ project(vmiler)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(main vmi.cc)
+add_executable(main vmi.cc
+        Logger.cpp
+        )
+
+target_include_directories(main PRIVATE .)

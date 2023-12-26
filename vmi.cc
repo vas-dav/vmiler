@@ -14,16 +14,27 @@
  *
  * =====================================================================================
  */
-#include <iostream>
-#include <cstdlib>
+#include <fstream>
+#include <string>
 
-static void help(void) {
-    std::cout << "Usage: vmi <source.vmi>" << std::endl;
-    exit(1);
-}
+#include "Logger.h"
 
 int main (int argc, char** argv) {
-    if (argc < 2) help();
+    vmiler::Logger logger;
+    if (argc < 2) {
+        logger.usage();
+    }
+
+    std::ifstream srcFilePath(argv[1]);
+    std::stringstream ss;
+    ss << "Source file: " << argv[1];
+    logger.debug(ss.str());
+    std::string currentLine;
+    while(std::getline(srcFilePath, currentLine)) {
+
+    }
+
+
     return 0;
 }
 
