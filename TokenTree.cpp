@@ -40,6 +40,6 @@ TokenTree::TokenTree(const TokenNode& rootNode): m_rootNode {rootNode} {
 }
 
 std::vector<Token> TokenTree::tokenizeString(const std::string &str) {
-    vmiler::logger.error("TokenTree::tokenizeString not implemented yet", 1);
+    WIP();
     return std::vector<Token>();
 }

@@ -22,7 +22,7 @@
 
 int main (int argc, char** argv) {
     if (argc < 2) {
-        vmiler::logger.usage();
+        vmiler::logger.usage("No arguments provided");
     }
 
     std::ifstream srcFile {argv[1]};

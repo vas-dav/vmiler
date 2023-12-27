@@ -10,6 +10,8 @@
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
+#include <cstdarg>
+#include <vector>
 
 namespace vmiler {
 
@@ -40,19 +42,21 @@ namespace vmiler {
 
         ~Logger() = default;
 
-        void debug(const std::string &log);
-
-        void error(const std::string &log, int exitCode = 0);
-
-        void warning(const std::string &log);
-
-        void info(const std::string &log);
-
-        void usage(const std::string &log="No arguments provided");
+        void debug(const char* fmt, ...);
+        void error(const char* fmt, ...);
+        void warning(const char* fmt, ...);
+        void info(const char* fmt, ...);
+        void usage(const char* fmt, ...);
+        void debug(const std::string& log);
+        void error(const std::string& log);
+        void warning(const std::string& log);
+        void info(const std::string& log);
+        void usage(const std::string& log);
 
     private:
         void log_line(const std::string &log, LogSeverity severity);
         std::string getSeverity(LogSeverity severity) const;
+        static std::string expandArgs(const char* fmt, std::va_list args) ;
 
         bool m_colored;
     };
@@ -60,5 +64,7 @@ namespace vmiler {
     extern Logger logger;
 
 }
+
+#define WIP() vmiler::logger.error("%s:%s:%lu is work in progress. Do not use it.", __FILE__, __func__, __LINE__)
 
 #endif //VMILER_LOGGER_H
