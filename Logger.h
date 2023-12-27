@@ -66,5 +66,6 @@ namespace vmiler {
 }
 
 #define WIP() vmiler::logger.error("%s:%s:%lu is work in progress. Do not use it.", __FILE__, __func__, __LINE__)
+#define WIP_WEAK() vmiler::logger.warning("%s:%s:%lu is work in progress. Proceed carefully.", __FILE__, __func__, __LINE__)
 
 #endif //VMILER_LOGGER_H

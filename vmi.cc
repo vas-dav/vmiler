@@ -29,10 +29,19 @@ int main (int argc, char** argv) {
     if (!srcFile.is_open()) {
         vmiler::logger.error("Unable to open file: %s", argv[1]);
     }
+    vmiler::logger.info("Reading file %s", argv[1]);
     std::string currentLine {};
+    TokenTree tokenTree;
 
     while(std::getline(srcFile, currentLine)) {
-        auto tokens {TokenTree::tokenizeString(currentLine)};
+        auto tokens {tokenTree.tokenizeString(currentLine)};
+        std::stringstream ss;
+        ss << "Tokenized: ";
+        for (Token token : tokens) {
+            ss << token.getName() << " ";
+        }
+        ss << std::endl;
+        vmiler::logger.debug(ss.str());
     }
     return 0;
 }

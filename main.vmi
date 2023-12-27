@@ -1,1 +1,4 @@
-exit;
+int a = 12;
+char foo=34;
+string bar = "hello world";
+exit 42;

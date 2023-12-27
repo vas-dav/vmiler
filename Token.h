@@ -7,14 +7,18 @@
 
 #include <string>
 #include <utility>
+#include <regex>
 
 
 class Token {
 public:
-    Token(std::string name);
+    explicit Token(std::string name, const std::string& regex="");
+    std::regex getRegex();
+    std::string getName();
 
 protected:
-    std::string _name;
+    std::string m_name;
+    std::regex m_regex;
 };
 
 
