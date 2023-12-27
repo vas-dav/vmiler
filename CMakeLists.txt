@@ -4,6 +4,8 @@ project(vmiler)
 set(CMAKE_CXX_STANDARD 11)
 
 add_executable(main vmi.cc
+        Token.cpp
+        TokenTree.cpp
         Logger.cpp
         )
 

@@ -48,7 +48,7 @@ namespace vmiler {
 
         void info(const std::string &log);
 
-        void usage();
+        void usage(const std::string &log="No arguments provided");
 
     private:
         void log_line(const std::string &log, LogSeverity severity);
@@ -56,6 +56,8 @@ namespace vmiler {
 
         bool m_colored;
     };
+
+    extern Logger logger;
 
 }
 

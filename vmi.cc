@@ -18,23 +18,20 @@
 #include <string>
 
 #include "Logger.h"
+#include "TokenTree.hpp"
 
 int main (int argc, char** argv) {
-    vmiler::Logger logger;
     if (argc < 2) {
-        logger.usage();
+        vmiler::logger.usage();
     }
 
-    std::ifstream srcFilePath(argv[1]);
-    std::stringstream ss;
-    ss << "Source file: " << argv[1];
-    logger.debug(ss.str());
-    std::string currentLine;
-    while(std::getline(srcFilePath, currentLine)) {
+    std::ifstream srcFile {argv[1]};
+    std::string currentLine {};
 
-    }
-
+    do {
+        srcFile >> currentLine;
+        auto tokens {TokenTree::tokenizeString(currentLine)};
+    } while (!currentLine.empty());
 
     return 0;
 }
-

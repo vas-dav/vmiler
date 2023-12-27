@@ -6,6 +6,8 @@
 
 using namespace vmiler;
 
+Logger vmiler::logger;
+
 Logger::Logger(bool colored) {
     m_colored = colored;
 }
@@ -27,9 +29,9 @@ void Logger::info(const std::string &log) {
     log_line(log, LogSeverity::INFO);
 }
 
-void Logger::usage() {
+void Logger::usage(const std::string &log) {
     std::stringstream ss;
-    ss << "No arguments provided" << std::endl;
+    ss << log << std::endl;
     ss << "Usage: vmi <source.vmi>" << std::endl;
     log_line(ss.str(), LogSeverity::ERROR);
     exit(1);
