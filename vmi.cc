@@ -26,12 +26,13 @@ int main (int argc, char** argv) {
     }
 
     std::ifstream srcFile {argv[1]};
+    if (!srcFile.is_open()) {
+        vmiler::logger.error("Unable to open file: %s", argv[1]);
+    }
     std::string currentLine {};
 
-    do {
-        srcFile >> currentLine;
+    while(std::getline(srcFile, currentLine)) {
         auto tokens {TokenTree::tokenizeString(currentLine)};
-    } while (!currentLine.empty());
-
+    }
     return 0;
 }
