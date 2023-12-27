@@ -1,4 +1,5 @@
 int a = 12;
-char foo=34;
-string bar = "hello world";
+char foo=
+    34; string bar = "hello world";
+byte boo = "ghjg";
 exit 42;

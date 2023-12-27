@@ -32,16 +32,18 @@ int main (int argc, char** argv) {
     vmiler::logger.info("Reading file %s", argv[1]);
     std::string currentLine {};
     TokenTree tokenTree;
+    std::vector<Token> tokens;
 
     while(std::getline(srcFile, currentLine)) {
-        auto tokens {tokenTree.tokenizeString(currentLine)};
-        std::stringstream ss;
-        ss << "Tokenized: ";
-        for (Token token : tokens) {
-            ss << token.getName() << " ";
-        }
-        ss << std::endl;
-        vmiler::logger.debug(ss.str());
+        auto lineTokens {(tokenTree.tokenizeString(currentLine))};
+        tokens.insert(tokens.end(), lineTokens.begin(), lineTokens.end());
     }
+
+    std::stringstream ss;
+    ss << "Tokenized: ";
+    for (Token token : tokens) {
+        ss << token.getName() << " ";
+    }
+    vmiler::logger.info(ss.str());
     return 0;
 }
