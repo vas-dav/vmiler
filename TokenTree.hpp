@@ -29,17 +29,17 @@ public:
 
 protected:
     const Token rootToken {"root", ".*", Token::TokenId::ROOT_TOKEN};
-    const Token exitToken {"exit", "\\bexit\\b", Token::TokenId::EXIT_TOKEN};
-    const Token charToken {"char", "\\bchar\\b", Token::TokenId::CHAR_TOKEN};
-    const Token byteToken {"byte", "\\bbyte\\b", Token::TokenId::BYTE_TOKEN};
-    const Token boolToken {"bool", "\\bbool\\b", Token::TokenId::BOOL_TOKEN};
-    const Token intToken {"int", "\\bint\\b", Token::TokenId::INT_TOKEN};
-    const Token stringToken {"string", "\\bstring\\b", Token::TokenId::STRING_TOKEN};
+    const Token exitToken {"exit", "^\\s*\\bexit\\b", Token::TokenId::EXIT_TOKEN};
+    const Token charToken {"char", "^\\s*\\bchar\\b", Token::TokenId::CHAR_TOKEN};
+    const Token byteToken {"byte", "^\\s*\\bbyte\\b", Token::TokenId::BYTE_TOKEN};
+    const Token boolToken {"bool", "^\\s*\\bbool\\b", Token::TokenId::BOOL_TOKEN};
+    const Token intToken {"int", "^\\s*\\bint\\b", Token::TokenId::INT_TOKEN};
+    const Token stringToken {"string", "^\\s*\\bstring\\b", Token::TokenId::STRING_TOKEN};
     const Token identifierToken {"id", "(\\s+)([a-zA-Z_][a-zA-Z0-9_]*)\\b", Token::TokenId::IDENTIFIER_TOKEN};
-    const Token equalityToken {"equality", "=", Token::TokenId::EQUALITY_TOKEN};
-    const Token numericLiteralToken {"num_literal", "\\b[0-9]+\\b", Token::TokenId::NUMERIC_LITERAL_TOKEN};
-    const Token stringLiteralToken {"string_literal", "\"([^\"]*)\"", Token::TokenId::STRING_LITERAL_TOKEN};
-    const Token semicolonToken {"semicolon", ";", Token::TokenId::SEMICOLON_TOKEN};
+    const Token equalityToken {"equality", "^\\s*=", Token::TokenId::EQUALITY_TOKEN};
+    const Token numericLiteralToken {"num_literal", "^\\s*\\b[0-9]+\\b", Token::TokenId::NUMERIC_LITERAL_TOKEN};
+    const Token stringLiteralToken {"string_literal", "^\\s*\"([^\"]*)\"", Token::TokenId::STRING_LITERAL_TOKEN};
+    const Token semicolonToken {"semicolon", "^\\s*;", Token::TokenId::SEMICOLON_TOKEN};
     const Token endToken {"end", "", Token::TokenId::END_TOKEN};
 
     const TokenTree::TokenNode endTokenNode {endToken, {}};
