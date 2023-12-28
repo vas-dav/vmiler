@@ -16,6 +16,10 @@ bool Token::operator==(const Token &token) {
     return this->m_id == token.m_id;
 }
 
+bool Token::operator!=(const Token &token) {
+    return this->m_id != token.m_id;
+}
+
 std::regex Token::getRegex() const {
     return std::__cxx11::regex{m_regex};
 }

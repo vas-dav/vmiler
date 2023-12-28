@@ -21,6 +21,7 @@ public:
         TokenNode(const TokenNode& node) = default;
 
         bool operator==(const TokenNode& node) const;
+        bool operator!=(const TokenNode& node) const;
     };
 
     TokenTree() = default;
@@ -38,22 +39,27 @@ protected:
     const Token equalityToken {"equality", "=", Token::TokenId::EQUALITY_TOKEN};
     const Token numericLiteralToken {"num_literal", "\\b[0-9]+\\b", Token::TokenId::NUMERIC_LITERAL_TOKEN};
     const Token stringLiteralToken {"string_literal", "\"([^\"]*)\"", Token::TokenId::STRING_LITERAL_TOKEN};
-    const Token endToken {"end", ";", Token::TokenId::END_TOKEN};
+    const Token semicolonToken {"semicolon", ";", Token::TokenId::SEMICOLON_TOKEN};
+    const Token endToken {"end", "", Token::TokenId::END_TOKEN};
 
     const TokenTree::TokenNode endTokenNode {endToken, {}};
-    const TokenTree::TokenNode stringLiteralTokenNode {stringLiteralToken, {&endTokenNode}};
-    const TokenTree::TokenNode numericLiteralTokenNode {numericLiteralToken, {&endTokenNode}};
-    const TokenTree::TokenNode equalityTokenNode {equalityToken, {&numericLiteralTokenNode, &stringLiteralTokenNode}};
+    const TokenTree::TokenNode semicolonTokenNode {semicolonToken, {&endTokenNode}};
+    const TokenTree::TokenNode stringLiteralTokenNode {stringLiteralToken, {&semicolonTokenNode}};
+    const TokenTree::TokenNode numericLiteralTokenNode {numericLiteralToken, {&semicolonTokenNode}};
+    const TokenTree::TokenNode equalityTokenNode {equalityToken, {&numericLiteralTokenNode,
+                                                                               &stringLiteralTokenNode}};
     const TokenTree::TokenNode identifierTokenNode {identifierToken, {&equalityTokenNode}};
     const TokenTree::TokenNode stringTokenNode {stringToken, {&identifierTokenNode}};
     const TokenTree::TokenNode intTokenNode {intToken, {&identifierTokenNode}};
     const TokenTree::TokenNode boolTokenNode {boolToken, {&identifierTokenNode}};
     const TokenTree::TokenNode byteTokenNode {byteToken, {&identifierTokenNode}};
     const TokenTree::TokenNode charTokenNode {charToken, {&identifierTokenNode}};
-    const TokenTree::TokenNode exitTokenNode {exitToken, {&numericLiteralTokenNode, &endTokenNode}};
-    const TokenTree::TokenNode rootTokenNode {rootToken, {&exitTokenNode, &charTokenNode, &byteTokenNode, &boolTokenNode, &intTokenNode, &stringTokenNode}};
+    const TokenTree::TokenNode exitTokenNode {exitToken, {&numericLiteralTokenNode, &semicolonTokenNode}};
+    const TokenTree::TokenNode rootTokenNode {rootToken, {&exitTokenNode, &charTokenNode, &byteTokenNode,
+                                                                       &boolTokenNode, &intTokenNode, &stringTokenNode,
+                                                                       &semicolonTokenNode}};
 
-    std::vector<TokenNode> tokenizeStringCall(const std::string& str, const TokenNode& currentNode, size_t& position);
+    std::vector<TokenNode> tokenizeStringCall(const std::string& str);
     TokenTree::TokenNode m_lastTokenNode {rootTokenNode};
 };
 

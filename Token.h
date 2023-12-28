@@ -24,6 +24,7 @@ public:
         EQUALITY_TOKEN,
         NUMERIC_LITERAL_TOKEN,
         STRING_LITERAL_TOKEN,
+        SEMICOLON_TOKEN,
         END_TOKEN
     };
 
@@ -35,6 +36,7 @@ public:
     TokenId getId() const;
 
     bool operator==(const Token& token);
+    bool operator!=(const Token& token);
 
 protected:
     std::string m_name {};
