@@ -1,5 +1,2 @@
-char foo=
-    34; string bar = "hello world";
-byte boo = "ghjg";
-;
-exit 42;
+int a = 420;
+exit 69;

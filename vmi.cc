@@ -14,28 +14,22 @@
  *
  * =====================================================================================
  */
-#include <fstream>
+
 #include <string>
 
 #include "Logger.h"
 #include "TokenTree.hpp"
+#include "VmiSourceData.h"
 
 int main (int argc, char** argv) {
     if (argc < 2) {
         vmiler::logger.usage("No arguments provided");
     }
-
-    std::ifstream srcFile {argv[1]};
-    if (!srcFile.is_open()) {
-        vmiler::logger.error("Unable to open file: %s", argv[1]);
-    }
-    vmiler::logger.info("Reading file %s", argv[1]);
-    std::string currentLine {};
-    TokenTree tokenTree;
+    vmiler::VmiSourceData vmiMainSrc(argv[1]);
     std::vector<Token> tokens;
-
-    while(std::getline(srcFile, currentLine)) {
-        auto lineTokens {(tokenTree.tokenizeString(currentLine))};
+    TokenTree tokenTree;
+    for(auto line {(vmiMainSrc.getNextLine())}; !line.isEnd; line = vmiMainSrc.getNextLine()) {
+        auto lineTokens {(tokenTree.tokenizeString(line))};
         tokens.insert(tokens.end(), lineTokens.begin(), lineTokens.end());
     }
 

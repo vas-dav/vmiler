@@ -7,6 +7,8 @@ add_executable(main vmi.cc
         Token.cpp
         TokenTree.cpp
         Logger.cpp
-        )
+        VmiSourceData.cpp
+        VmiSourceData.h
+)
 
 target_include_directories(main PRIVATE .)

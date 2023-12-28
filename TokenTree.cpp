@@ -12,19 +12,19 @@ bool TokenTree::TokenNode::operator!=(const TokenTree::TokenNode &node) const {
     return this->m_token.getId() != node.m_token.getId();
 }
 
-std::vector<TokenTree::TokenNode> TokenTree::tokenizeStringCall(const std::string& str) {
+std::vector<TokenTree::TokenNode> TokenTree::tokenizeStringCall(vmiler::VmiSourceData::VmiSourceLine &line) {
     std::vector<TokenNode> tokens;
     TokenNode currentNode = m_lastTokenNode;
-    size_t strPosition = 0;
+    std::string str = line.getFullLine();
     /* The currentNode should change on each iteration of the loop. If
      * that does not happen, there is a mismatch and the function should
      * immediately stop and throw an error. */
-    while (currentNode != endTokenNode && strPosition < str.size()) {
+    while (currentNode != endTokenNode && line.position < str.size()) {
         bool tokenMatched = false;
         for (const auto* child : currentNode.m_nodes) {
             TokenNode tokenNode = *child;
             std::smatch match;
-            if (std::regex_search(str.cbegin() + strPosition,
+            if (std::regex_search(str.cbegin() + line.position,
                                   str.cend(), match,
                                   std::regex(tokenNode.m_token.getRegex()))) {
                 if (tokenNode != endTokenNode) {
@@ -35,14 +35,14 @@ std::vector<TokenTree::TokenNode> TokenTree::tokenizeStringCall(const std::strin
                     tokenMatched = true;
                     break;
                 }
-                strPosition += match.position() + match.length();
+                line.position += match.position() + match.length();
                 currentNode = tokenNode;
                 tokenMatched = true;
                 break;
             }
         }
         if (!tokenMatched) {
-            std::string errorInString= str.substr(strPosition, str.size() > 10 ? 10 : str.size() - strPosition);
+            std::string errorInString= str.substr(line.position, str.size() > 10 ? 10 : str.size() - line.position);
             vmiler::logger.error("Can't match token at %s. Last token is %s", errorInString.c_str(),
                                                                   currentNode.m_token.getName().c_str());
         }
@@ -51,10 +51,10 @@ std::vector<TokenTree::TokenNode> TokenTree::tokenizeStringCall(const std::strin
     return tokens;
 }
 
-std::vector<Token> TokenTree::tokenizeString(const std::string &str) {
+std::vector<Token> TokenTree::tokenizeString(vmiler::VmiSourceData::VmiSourceLine& line) {
     WIP_WEAK();
-    //vmiler::logger.debug("TokenTree::tokenizeString tokenizing: %s", str.c_str());
-    auto parsedNodes {tokenizeStringCall(str)};
+    vmiler::logger.debug("TokenTree::tokenizeString tokenizing: %s", line.getFullLine().c_str());
+    auto parsedNodes {tokenizeStringCall(line)};
     std::vector<Token> tokens {};
     tokens.resize(parsedNodes.size());
     std::transform(parsedNodes.begin(),

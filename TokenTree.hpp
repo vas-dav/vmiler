@@ -8,6 +8,7 @@
 
 #include "Token.h"
 #include "Logger.h"
+#include "VmiSourceData.h"
 
 
 class TokenTree {
@@ -25,7 +26,7 @@ public:
     };
 
     TokenTree() = default;
-    std::vector<Token> tokenizeString(const std::string& str);
+    std::vector<Token> tokenizeString(vmiler::VmiSourceData::VmiSourceLine& line);
 
 protected:
     const Token rootToken {"root", ".*", Token::TokenId::ROOT_TOKEN};
@@ -59,7 +60,7 @@ protected:
                                                                        &boolTokenNode, &intTokenNode, &stringTokenNode,
                                                                        &semicolonTokenNode}};
 
-    std::vector<TokenNode> tokenizeStringCall(const std::string& str);
+    std::vector<TokenNode> tokenizeStringCall(vmiler::VmiSourceData::VmiSourceLine &line);
     TokenTree::TokenNode m_lastTokenNode {rootTokenNode};
 };
 
