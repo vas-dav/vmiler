@@ -24,7 +24,7 @@ std::regex Token::getRegex() const {
     return std::__cxx11::regex{m_regex};
 }
 
-std::string Token::getName() {
+std::string Token::getName() const {
     return std::string{m_name};
 }
 

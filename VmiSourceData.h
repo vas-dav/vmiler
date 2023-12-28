@@ -18,12 +18,16 @@ namespace vmiler {
         struct VmiSourceLine {
         public:
             VmiSourceLine();
-            explicit VmiSourceLine(std::string line);
+            explicit VmiSourceLine(std::string line, std::size_t count, const std::string& sourceFilePath);
+            void throwExpectationNotMet(const std::string& expected, const std::string& after);
             std::string getFullLine() const;
             std::size_t position;
             bool isEnd;
         private:
+            std::string getFilePositionStr();
             std::string m_line;
+            std::size_t m_line_count;
+            std::string m_srcFilePath;
         };
 
         explicit VmiSourceData(const std::string &sourceFilePath);
@@ -32,7 +36,9 @@ namespace vmiler {
 
 
     private:
-        std::ifstream srcFile;
+        std::ifstream m_srcFile;
+        std::string m_srcFilePath;
+        std::vector<VmiSourceLine> m_lines;
     };
 }
 

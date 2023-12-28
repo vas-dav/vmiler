@@ -1,2 +1,2 @@
 int a = 420;
-exit 69;
+exit a;

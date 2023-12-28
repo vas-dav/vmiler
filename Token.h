@@ -32,7 +32,7 @@ public:
     Token(const Token& token) = default;
     explicit Token(std::string name, const std::string& regex="", TokenId id = ROOT_TOKEN);
     std::regex getRegex() const;
-    std::string getName();
+    std::string getName() const;
     TokenId getId() const;
 
     bool operator==(const Token& token);

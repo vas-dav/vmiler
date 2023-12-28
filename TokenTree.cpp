@@ -42,9 +42,8 @@ std::vector<TokenTree::TokenNode> TokenTree::tokenizeStringCall(vmiler::VmiSourc
             }
         }
         if (!tokenMatched) {
-            std::string errorInString= str.substr(line.position, str.size() > 10 ? 10 : str.size() - line.position);
-            vmiler::logger.error("Can't match token at %s. Last token is %s", errorInString.c_str(),
-                                                                  currentNode.m_token.getName().c_str());
+            auto* expected = currentNode.m_nodes.front();
+            line.throwExpectationNotMet(expected->m_token.getName(), currentNode.m_token.getName());
         }
     }
     m_lastTokenNode = currentNode;
